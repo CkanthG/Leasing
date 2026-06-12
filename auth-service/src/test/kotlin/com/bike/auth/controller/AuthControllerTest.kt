@@ -4,17 +4,17 @@ import com.bike.auth.dto.response.LoginResponse
 import com.bike.auth.dto.response.RefreshTokenResponse
 import com.bike.auth.repository.RefreshTokenRepository
 import com.bike.auth.repository.UserRepository
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import tools.jackson.databind.ObjectMapper
 import kotlin.random.Random
 
 @SpringBootTest
@@ -64,7 +64,7 @@ class AuthControllerTest {
       ).andExpect(status().isOk)
       .andReturn()
 
-    val objectMapper = ObjectMapper()
+    val objectMapper = jacksonObjectMapper()
     val res: LoginResponse =
       objectMapper.readValue(result.response.contentAsString, LoginResponse::class.java)
 
