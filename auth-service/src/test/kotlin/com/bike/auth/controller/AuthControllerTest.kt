@@ -45,7 +45,8 @@ class AuthControllerTest {
             String.format("""
           {
             "email" : "%s",
-            "password" : "%d"
+            "password" : "%d",
+            "role" : "USER"
           }
         """, email, password).trimIndent()
           ).contentType(MediaType.APPLICATION_JSON)

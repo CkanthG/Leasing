@@ -58,7 +58,7 @@ class AuthServiceTest {
 
 
     `when`(userRepository.findByEmail(loginRequest.email)).thenReturn(user);
-    `when`(jwtService.generateToken(loginRequest.email)).thenReturn(token)
+    `when`(jwtService.generateToken(loginRequest.email, user.role.name)).thenReturn(token)
     `when`(passwordEncoder.matches(loginRequest.password, user.password)).thenReturn(true)
 
     val response = authService.login(loginRequest)
@@ -90,7 +90,7 @@ class AuthServiceTest {
 
   @Test
   fun register() {
-    val registerRequest = RegisterRequest("sg@gmail.com", "password")
+    val registerRequest = RegisterRequest("sg@gmail.com", "password", Role.USER)
 
     `when`(passwordEncoder.encode(registerRequest.password)).thenReturn(registerRequest.password)
 
@@ -101,7 +101,7 @@ class AuthServiceTest {
 
   @Test
   fun registerFailedDueToDuplicateEmail() {
-    val registerRequest = RegisterRequest("s@gmail.com", "password")
+    val registerRequest = RegisterRequest("s@gmail.com", "password", Role.USER)
 
     `when`(userRepository.findByEmail(registerRequest.email)).thenReturn(user)
 
@@ -117,7 +117,7 @@ class AuthServiceTest {
     val refreshTokenRequest = RefreshTokenRequest(refreshTokenUUID)
 
     `when`(refreshTokenRepository.findByToken(refreshTokenUUID)).thenReturn(refreshTokenEntity)
-    `when`(jwtService.generateToken(refreshTokenEntity.user.email)).thenReturn(token)
+    `when`(jwtService.generateToken(refreshTokenEntity.user.email, refreshTokenEntity.user.role.name)).thenReturn(token)
 
     val refreshToken = authService.refreshToken(request = refreshTokenRequest)
 

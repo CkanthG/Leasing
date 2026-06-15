@@ -27,7 +27,10 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.xml
 server:
   port: 7001
+jwt:
+  secret: "your-super-secure-random-secret-key-256-bit"
 logging:
   level:
+    org.springframework.security: DEBUG
     liquibase: DEBUG
     org.springframework.liquibase: DEBUG
