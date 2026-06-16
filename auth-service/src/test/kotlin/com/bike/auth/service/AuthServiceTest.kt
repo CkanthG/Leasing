@@ -52,7 +52,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun login() {
+  fun `user should login successfully`() {
     val user = UserEntity(email = "s@gmail.com", password = passwordEncoder.encode("user"), role = Role.USER)
     val loginRequest = LoginRequest("s@gmail.com", "user")
 
@@ -68,7 +68,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun userNotFound() {
+  fun `user not found when logging in`() {
     val loginRequest = LoginRequest("s@gmail.com", "user")
 
     assertThrows(UserNotFoundException::class.java) {
@@ -77,7 +77,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun userTokenExpired() {
+  fun `user token expired`() {
     val user = UserEntity(email = "s@gmail.com", password = passwordEncoder.encode("user"), role = Role.USER)
     val loginRequest = LoginRequest("s@gmail.com", "user")
 
@@ -89,7 +89,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun register() {
+  fun `user should successfully register into system`() {
     val registerRequest = RegisterRequest("sg@gmail.com", "password", Role.USER)
 
     `when`(passwordEncoder.encode(registerRequest.password)).thenReturn(registerRequest.password)
@@ -100,7 +100,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun registerFailedDueToDuplicateEmail() {
+  fun `user registration failed due to duplicate email`() {
     val registerRequest = RegisterRequest("s@gmail.com", "password", Role.USER)
 
     `when`(userRepository.findByEmail(registerRequest.email)).thenReturn(user)
@@ -111,7 +111,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun refreshToken() {
+  fun `user should refresh token`() {
     val refreshTokenUUID = UUID.randomUUID().toString()
     val refreshTokenEntity = RefreshTokenEntity(token = refreshTokenUUID, expiresAt = LocalDateTime.now().plusHours(1), user = user!!)
     val refreshTokenRequest = RefreshTokenRequest(refreshTokenUUID)
@@ -126,7 +126,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun refreshTokenNotFound() {
+  fun `user refresh token id not found when refreshing token`() {
     val refreshTokenUUID = UUID.randomUUID().toString()
     val refreshTokenRequest = RefreshTokenRequest(refreshTokenUUID)
 
@@ -136,7 +136,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun refreshTokenExpired() {
+  fun `user refresh token expired`() {
     val refreshTokenUUID = UUID.randomUUID().toString()
     val refreshTokenRequest = RefreshTokenRequest(refreshTokenUUID)
     val refreshTokenEntity = RefreshTokenEntity(token = refreshTokenUUID, expiresAt = LocalDateTime.now().minusHours(1), user = user!!)
@@ -148,7 +148,7 @@ class AuthServiceTest {
   }
 
   @Test
-  fun refreshTokenRevoked() {
+  fun `user refresh token revoked`() {
     val refreshTokenUUID = UUID.randomUUID().toString()
     val refreshTokenRequest = RefreshTokenRequest(refreshTokenUUID)
     val refreshTokenEntity = RefreshTokenEntity(token = refreshTokenUUID, expiresAt = LocalDateTime.now().minusHours(1), user = user!!, revoked = true)
