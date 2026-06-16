@@ -26,7 +26,7 @@ export class LoginComponent {
         password: this.password
       }).subscribe(
       {
-        next: response => {
+        next: (response: any) => {
           localStorage.setItem('accessToken', response.accessToken);
           localStorage.setItem('refreshToken', response.refreshToken);
 
@@ -34,7 +34,7 @@ export class LoginComponent {
             '/dashboard'
           ])
         },
-        error: error => {
+        error: (error: any) => {
           alert('Invalid Credentials');
         }
       }
