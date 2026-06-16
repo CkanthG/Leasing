@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init:/docker-entrypoint-initdb.d
+    networks:
+      - bike-network
+
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: auth-service
+    depends_on:
+      - postgres
+    ports:
+      - "7001:7001"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/auth_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - bike-network
+
+  bike-catalog-service:
+    build:
+      context: ./bike-catalog-service
+    container_name: bike-catalog-service
+    depends_on:
+      - postgres
+    ports:
+      - "7002:7002"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bike_catalog_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - bike-network
+
+networks:
+  bike-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
