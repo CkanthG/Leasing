@@ -16,9 +16,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatButtonModule,
     MatMenuModule
   ],
-  templateUrl: './sidebar.html',
-  styleUrl: './sidebar.scss',
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
 })
-export class Sidebar {
+export class SidebarComponent {
 
 }

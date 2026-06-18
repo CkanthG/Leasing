@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.domain.Specification
+import org.springframework.mock.web.MockMultipartFile
 import java.util.Optional
 
 @ExtendWith(MockitoExtension::class)
@@ -33,6 +34,12 @@ class BikeCatalogServiceTest {
 
   @Test
   fun saveBikeCatalog() {
+    val file = MockMultipartFile(
+      "file",              // form field name
+      "test.txt",         // original filename
+      "text/plain",       // content type
+      "abcd".toByteArray() // file content
+    )
     val request = BikeCatalogRequest(
       id = 1,
       brand = "BMW",
@@ -43,7 +50,7 @@ class BikeCatalogServiceTest {
       leaseAmount = 7999.99,
       leaseTenure = 48,
       mileage = 30.0,
-      images = "abcd".toByteArray(Charsets.UTF_8),
+      images = file,
       availabilityStatus = false,
       insuranceDetails = "Insurance renewal due in 6 months"
     )
@@ -164,7 +171,7 @@ class BikeCatalogServiceTest {
       leaseAmount = 7999.99,
       leaseTenure = 48,
       mileage = 30.0,
-      images = "abcd".toByteArray(Charsets.UTF_8),
+      images = null,
       availabilityStatus = false,
       insuranceDetails = "Insurance renewal due in 6 months"
     )

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.assertj.core.api.Assertions.assertThat
+import org.hibernate.query.Page
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
+import org.springframework.data.domain.PageImpl
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.bean.override.mockito.MockitoBean
@@ -29,6 +31,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.util.Optional
 
@@ -67,17 +70,23 @@ class BikeCatalogControllerTest {
       leaseAmount = 7999.99,
       leaseTenure = 48,
       mileage = 30.0,
-      images = "abcd".toByteArray(),
+      images = null,
       availabilityStatus = true,
       insuranceDetails = "Insurance Included"
     )
 
     val res = mockMvc.perform(
-      post("/api/v1/bikeCatalog")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(
-          objectMapper.writeValueAsString(request)
-        )
+      multipart("/api/v1/bikeCatalog")
+        .param("brand", request.brand)
+        .param("model", request.model)
+        .param("variant", request.variant)
+        .param("engineCc", request.engineCc.toString())
+        .param("price", request.price.toString())
+        .param("leaseAmount", request.leaseAmount.toString())
+        .param("leaseTenure", request.leaseTenure.toString())
+        .param("mileage", request.mileage.toString())
+        .param("availabilityStatus", request.availabilityStatus.toString())
+        .param("insuranceDetails", request.insuranceDetails)
     )
       .andExpect(status().isCreated)
       .andReturn()
@@ -119,10 +128,15 @@ class BikeCatalogControllerTest {
     ).andExpect(status().isOk)
     .andReturn()
 
-    val resp3 = objectMapper.readValue(res3.response.contentAsString, object : TypeReference<List<BikeCatalogResponse>>() {})
+    val node = objectMapper.readTree(res3.response.contentAsString)
 
-    assertThat(resp3).isNotNull
-    customAsserting(resp3.first(), updateBikeCatalog)
+    val content: List<BikeCatalogResponse> = objectMapper.readValue(
+      node.get("content").toString(),
+      object : TypeReference<List<BikeCatalogResponse>>() {}
+    )
+
+    assertThat(content).isNotNull
+    customAsserting(content.first(), updateBikeCatalog)
 
     mockMvc.perform(
       delete("/api/v1/bikeCatalog/" + resp.id)
@@ -180,9 +194,14 @@ class BikeCatalogControllerTest {
     ).andExpect(status().isOk)
       .andReturn()
 
-    val resp4 = objectMapper.readValue(res4.response.contentAsString, object : TypeReference<List<BikeCatalogResponse>>() {})
+    val node = objectMapper.readTree(res4.response.contentAsString)
 
-    assertThat(resp4).isEmpty()
+    val content: List<BikeCatalogResponse> = objectMapper.readValue(
+      node.get("content").toString(),
+      object : TypeReference<List<BikeCatalogResponse>>() {}
+    )
+
+    assertThat(content).isEmpty()
   }
 
   @Test
@@ -190,16 +209,8 @@ class BikeCatalogControllerTest {
   fun `save bike catalog return throw validation error`() {
 
     mockMvc.perform(
-      post("/api/v1/bikeCatalog")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(
-          """
-            {
-              "brand" : "BMW-1",
-              "model" : "G310R-1"
-            }
-          """.trimIndent()
-        )
+      multipart("/api/v1/bikeCatalog")
+        .param("brand", "BMW")
     )
       .andExpect(status().isBadRequest)
   }

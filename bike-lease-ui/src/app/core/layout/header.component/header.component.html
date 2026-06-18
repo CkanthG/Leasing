@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+
+  <span class="logo">
+    Bike Lease Admin
+  </span>
+
+  <span class="spacer"></span>
+
+  <button
+    mat-button
+    routerLink="/dashboard"
+    routerLinkActive="active-link">
+    Dashboard
+  </button>
+
+  <button
+    mat-button
+    routerLink="/users"
+    routerLinkActive="active-link">
+    Users
+  </button>
+
+  <button
+    mat-button
+    routerLink="/inventory"
+    routerLinkActive="active-link">
+    Bike Inventory
+  </button>
+
+  <button
+    mat-button
+    (click)="logout()">
+    Logout
+  </button>
+
+</mat-toolbar>

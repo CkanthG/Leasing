@@ -5,12 +5,15 @@ import com.bike.catalog.dto.request.BikeCatalogSearchRequest
 import com.bike.catalog.dto.response.BikeCatalogResponse
 import com.bike.catalog.service.BikeCatalogService
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -25,8 +28,8 @@ class BikeCatalogController(
 ) {
 
   @PreAuthorize("hasRole('ADMIN')")
-  @PostMapping
-  fun bikeCatalog(@Valid @RequestBody bikeCatalogRequest: BikeCatalogRequest): ResponseEntity<BikeCatalogResponse> {
+  @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+  fun bikeCatalog(@Valid @ModelAttribute bikeCatalogRequest: BikeCatalogRequest): ResponseEntity<BikeCatalogResponse> {
     val res = bikeCatalogService.saveBikeCatalog(bikeCatalogRequest)
     return ResponseEntity.status(HttpStatus.CREATED).body(res)
   }
@@ -44,7 +47,7 @@ class BikeCatalogController(
   fun searchBikeCatalog(
     request: BikeCatalogSearchRequest,
     pageable: Pageable
-  ): ResponseEntity<List<BikeCatalogResponse>> {
+  ): ResponseEntity<Page<BikeCatalogResponse>> {
     return ResponseEntity.ok(bikeCatalogService.searchBikeCatalog(
       request, pageable
     ))

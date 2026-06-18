@@ -31,4 +31,7 @@ jwt:
   secret: "your-super-secure-random-secret-key-256-bit"
 logging:
   level:
+    root: WARN
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR
     org.springframework.security: DEBUG

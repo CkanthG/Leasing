@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+.bike-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.bike-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.bike-data-card {
+  width: 350px;
+}
+
+.bike-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

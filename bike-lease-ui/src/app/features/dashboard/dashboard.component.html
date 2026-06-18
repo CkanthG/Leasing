@@ -1,6 +1,29 @@
-<mat-card>
-  <mat-card-title>Total Users</mat-card-title>
-  <mat-card-content>
-    124
-  </mat-card-content>
-</mat-card>
+<app-header></app-header>
+
+<div class="dashboard-grid">
+
+  <mat-card>
+
+    <mat-card-title>
+      Total Users
+    </mat-card-title>
+
+    <mat-card-content>
+      {{ this.totalUsers() }}
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-title>
+      Total Bikes
+    </mat-card-title>
+
+    <mat-card-content>
+      {{ this.totalBikes() }}
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

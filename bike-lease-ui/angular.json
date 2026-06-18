@@ -31,6 +31,9 @@
             ],
             "styles": [
               "src/styles.scss"
+            ],
+            "polyfills": [
+              "src/polyfills.ts"
             ]
           },
           "configurations": {

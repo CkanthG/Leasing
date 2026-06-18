@@ -6,6 +6,7 @@ import com.bike.catalog.dto.response.BikeCatalogResponse
 import com.bike.catalog.entity.BikeCatalog
 import com.bike.catalog.exception.BikeCatalogException
 import com.bike.catalog.repository.BikeCatalogRepository
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
@@ -33,7 +34,7 @@ class BikeCatalogService(
       leaseAmount = bikeCatalogRequest.leaseAmount,
       leaseTenure = bikeCatalogRequest.leaseTenure,
       mileage = bikeCatalogRequest.mileage,
-      images = bikeCatalogRequest.images,
+      images = bikeCatalogRequest.images?.bytes ?: "test".toByteArray(),
       availabilityStatus = bikeCatalogRequest.availabilityStatus,
       insuranceDetails = bikeCatalogRequest.insuranceDetails
     )
@@ -67,13 +68,13 @@ class BikeCatalogService(
   fun searchBikeCatalog(
     request: BikeCatalogSearchRequest,
     pageable: Pageable
-  ): List<BikeCatalogResponse> {
+  ): Page<BikeCatalogResponse> {
 
     val search = BikeCatalogSpecification.searchBikeCatalog(request)
 
     return bikeCatalogRepository.findAll(search, pageable ).map {
       toResponse(it)
-    }.toList()
+    }
   }
 
   fun updateBikeCatalog(request: BikeCatalogRequest): BikeCatalogResponse {

@@ -1,1 +1,53 @@
-<p>bike-form works!</p>
+   <form [formGroup]="bikeForm" class="bike-form-container">
+    
+    <mat-form-field>
+      <mat-label>Brand</mat-label>
+      <input matInput placeholder="Enter bike brand" formControlName="brand">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Model</mat-label>
+      <input matInput placeholder="Enter bike model" formControlName="model">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Variant</mat-label>
+      <input matInput placeholder="Enter bike variant" formControlName="variant">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Engine CC</mat-label>
+      <input matInput placeholder="Enter bike engine CC" formControlName="engineCc">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input matInput placeholder="Enter bike price" type="number" formControlName="price">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Lease Amount</mat-label>
+      <input matInput placeholder="Enter lease amount" type="number" formControlName="leaseAmount">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Lease Tenure</mat-label>
+      <input matInput placeholder="Enter lease tenure" type="number" formControlName="leaseTenure">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Mileage</mat-label>
+      <input matInput placeholder="Enter bike mileage" type="number" formControlName="mileage">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <select matNativeControl formControlName="availabilityStatus">
+        <option value="true">Available</option>
+        <option value="false">Not Available</option>
+      </select>
+    </mat-form-field>
+    <input 
+        placeholder="Upload bike image" 
+        formControlName="images" 
+        type="file" 
+        accept="image/*" 
+        (change)="onFileSelected($event)"
+    >
+    <mat-form-field>
+      <mat-label>Insurance Details</mat-label>
+      <input matInput placeholder="Enter insurance details" formControlName="insuranceDetails">
+    </mat-form-field>
+  </form>
