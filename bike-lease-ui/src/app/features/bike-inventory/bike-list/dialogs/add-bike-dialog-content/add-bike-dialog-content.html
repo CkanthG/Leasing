@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Add Bike</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Enter Bike Details</h3>
+  <p>Please fill in the details for the new bike you want to add.</p>
+  <app-bike-form></app-bike-form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close>Cancel</button>
+  <button matButton [mat-dialog-close]="true" cdkFocusInitial (click)="onSave($event)">Add</button>
+</mat-dialog-actions>

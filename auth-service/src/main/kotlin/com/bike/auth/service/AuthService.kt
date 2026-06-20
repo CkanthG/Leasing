@@ -37,7 +37,7 @@ class AuthService(
       throw InvalidCredentialsException("Invalid credentials")
     }
 
-    val accessToken = jwtService.generateToken(user.email)
+    val accessToken = jwtService.generateToken(user.email, user.role.name)
     val refreshToken = UUID.randomUUID().toString()
 
     refreshTokenRepository.save(
@@ -62,7 +62,7 @@ class AuthService(
     val user = UserEntity(
       email = request.email,
       password = passwordEncoder.encode(request.password),
-      role = Role.USER,
+      role = request.role,
     )
 
     userRepository.save(user)
@@ -80,7 +80,7 @@ class AuthService(
       throw TokenException("Token expired")
     }
 
-    val accessToken = jwtService.generateToken(refreshToken.user.email)
+    val accessToken = jwtService.generateToken(refreshToken.user.email, refreshToken.user.role.name)
 
     return RefreshTokenResponse(accessToken);
   }

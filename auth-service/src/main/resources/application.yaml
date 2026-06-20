@@ -14,9 +14,23 @@ spring:
   jpa:
     database: POSTGRESQL
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: validate
     show-sql: false
+    defer-datasource-initialization: false
     properties:
       hibernate:
         default_schema: public
         format_sql: false
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:db/changelog/db.changelog-master.xml
+server:
+  port: 7001
+jwt:
+  secret: "your-super-secure-random-secret-key-256-bit"
+logging:
+  level:
+    org.springframework.security: DEBUG
+    liquibase: DEBUG
+    org.springframework.liquibase: DEBUG

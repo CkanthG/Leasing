@@ -1,0 +1,59 @@
+<app-header></app-header>
+
+<div class="bike-list-header">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter bikes..." #input>
+  </mat-form-field>
+  <button align="end"
+    mat-raised-button
+    color="primary"
+    (click)="openDialog()">
+    Add Bike
+  </button>
+</div>
+
+<div class="bike-list-container">
+
+@for (bike of computedData(); track bike.id) {
+  <mat-card class="bike-data-card">
+    <mat-card-header>
+      <mat-card-subtitle>Brand: {{bike.brand}}, Model: {{bike.model}}</mat-card-subtitle>
+    </mat-card-header>
+    <img
+      mat-card-image
+      [src]="'data:image/jpeg;base64,' + bike.images"
+      alt="bike image"
+      class="bike-image"
+    />
+    <mat-card-content>
+      <p><strong>Variant:</strong> {{bike.variant}}</p>
+      <p><strong>Engine CC:</strong> {{bike.engineCc}}</p>
+      <p><strong>Price:</strong> {{bike.price}}</p>
+      <p><strong>Lease Amount:</strong> {{bike.leaseAmount}}</p>
+      <p><strong>Lease Tenure:</strong> {{bike.leaseTenure}}</p>
+      <p><strong>Mileage:</strong> {{bike.mileage}}</p>
+      <p>
+        <strong>Availability:</strong>
+        {{bike.availabilityStatus ? 'Available' : 'Not Available'}}
+      </p>
+      <p><strong>Insurance Details:</strong> {{bike.insuranceDetails}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      @if (this.userRole() === 'ADMIN') {
+        <button mat-button color="primary">Edit</button>
+        <button mat-button color="warn">Delete</button>
+      }
+      @if (this.userRole() === 'USER' && bike.availabilityStatus) {
+        <button mat-button color="info" (click)="openLeaseDialog()">Lease</button>
+      }
+    </mat-card-actions>
+  </mat-card>
+}
+<mat-paginator
+  [length]="totalRecords"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5,10,20,50]"
+  (page)="pageChanged($event)">
+</mat-paginator>
+</div>
