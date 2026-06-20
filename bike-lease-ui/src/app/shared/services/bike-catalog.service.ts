@@ -22,8 +22,6 @@ export class BikeCatalogService {
     .set('page', pageIndex.toString())
     .set('size', pageSize.toString());
 
-    console.log('Fetching bikes with params:', params.toString());
-
   return this.http.get<PageResponse<BikeCatalog>>(
     this.apiUrl,
     { params }

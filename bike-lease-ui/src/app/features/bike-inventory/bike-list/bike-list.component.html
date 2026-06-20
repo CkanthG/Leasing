@@ -3,7 +3,7 @@
 <div class="bike-list-header">
   <mat-form-field>
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter bikes..." #input>
   </mat-form-field>
   <button align="end"
     mat-raised-button
@@ -39,6 +39,15 @@
       </p>
       <p><strong>Insurance Details:</strong> {{bike.insuranceDetails}}</p>
     </mat-card-content>
+    <mat-card-actions>
+      @if (this.userRole() === 'ADMIN') {
+        <button mat-button color="primary">Edit</button>
+        <button mat-button color="warn">Delete</button>
+      }
+      @if (this.userRole() === 'USER' && bike.availabilityStatus) {
+        <button mat-button color="info" (click)="openLeaseDialog()">Lease</button>
+      }
+    </mat-card-actions>
   </mat-card>
 }
 <mat-paginator

@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-COPY build/libs/bike-catalog-service-0.0.1-SNAPSHOT.jar app.jar
+COPY build/libs/bike-catalog-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 7002
 

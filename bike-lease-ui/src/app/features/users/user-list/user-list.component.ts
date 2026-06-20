@@ -47,7 +47,6 @@ export class UserListComponent {
 
   computedData = computed(() => {
       const data = this.dataSource();
-      console.log('Computed data recalculated:', data);
       const search = this.search().trim().toLowerCase();
 
       if (!search) {

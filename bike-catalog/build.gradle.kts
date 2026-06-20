@@ -28,8 +28,8 @@ dependencies {
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   compileOnly("org.projectlombok:lombok")
   runtimeOnly("org.postgresql:postgresql")
-  annotationProcessor("org.projectlombok:lombok")
   implementation("org.liquibase:liquibase-core")
+  implementation("org.springframework.kafka:spring-kafka")
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("io.jsonwebtoken:jjwt-api:0.12.5")
   runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
@@ -39,7 +39,7 @@ dependencies {
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
   testCompileOnly("org.projectlombok:lombok")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-  testAnnotationProcessor("org.projectlombok:lombok")
+  testImplementation("org.springframework.kafka:spring-kafka-test")
 }
 
 kotlin {

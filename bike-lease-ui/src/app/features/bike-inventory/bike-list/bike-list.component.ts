@@ -9,8 +9,9 @@ import { BikeCatalogService } from '../../../shared/services/bike-catalog.servic
 import { BikeCatalog } from '../../../shared/models/bike-catalog.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBikeDialogContent } from './dialogs/add-bike-dialog-content/add-bike-dialog-content';
-import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle } from "@angular/material/card";
+import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardActions } from "@angular/material/card";
 import { MatTableDataSource } from '@angular/material/table';
+import { LeaseBikeDialog } from './dialogs/lease-bike-dialog/lease-bike-dialog';
 
 @Component({
   selector: 'app-bike-list',
@@ -24,7 +25,8 @@ import { MatTableDataSource } from '@angular/material/table';
     MatCard,
     MatCardContent,
     MatCardHeader,
-    MatCardSubtitle
+    MatCardSubtitle,
+    MatCardActions
 ],
   templateUrl: './bike-list.component.html',
   styleUrl: './bike-list.component.scss',
@@ -43,6 +45,8 @@ export class BikeListComponent implements AfterViewInit {
   pageSize = 10;
 
   pageIndex = 0;
+
+  userRole = signal('')
 
   dataSource = new MatTableDataSource<BikeCatalog>(this.bikeCatalogDataSource());
 
@@ -66,13 +70,13 @@ export class BikeListComponent implements AfterViewInit {
       this.bikeCatalogDataSource.set(bikes.content);
       this.bikeDataSource.set(bikes.content);
     });
+
+    this.userRole.set(localStorage.getItem('role') as string)
    }
 
    computedData = computed(() => {
       const data = this.bikeDataSource();
-      console.log('Computed data recalculated:', data);
       const search = this.search().trim().toLowerCase();
-      console.log('Computed data recalculated. Search:', data, search);
 
       if (!search) {
         return data;
@@ -94,6 +98,14 @@ export class BikeListComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  openLeaseDialog() {
+    const leaseDialogRef = this.dialog.open(LeaseBikeDialog);
+
+    leaseDialogRef.afterClosed().subscribe(result => {
+      console.log(`Lease Dialof Result : ${result}`);
+    })
   }
 
   pageChanged(

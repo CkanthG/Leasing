@@ -5,6 +5,7 @@ import com.bike.auth.service.UserService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -29,5 +30,14 @@ class UserController(
     @PathVariable userId: Long
   ): ResponseEntity<UserResponse> {
     return ResponseEntity.ok().body(userService.userById(userId))
+  }
+
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  @GetMapping("/me")
+  fun getUserByToken(
+    authentication: Authentication
+  ): ResponseEntity<UserResponse> {
+    val userEmail = authentication.name
+    return ResponseEntity.ok().body(userService.userByEmail(userEmail))
   }
 }

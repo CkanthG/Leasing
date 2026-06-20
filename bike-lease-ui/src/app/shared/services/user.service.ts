@@ -28,4 +28,10 @@ export class UserService {
       `${this.apiUrl}/${id}`
     );
   }
+
+  getUserRoleByToken(): Observable<User> {
+    return this.http.get<User>(
+      `${this.apiUrl}/me`
+    )
+  }
 }

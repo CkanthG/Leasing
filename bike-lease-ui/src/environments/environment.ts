@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
 
-  authApiUrl: 'http://localhost:7001/api/v1',
-  bikeCatalogApiUrl: 'http://localhost:7002/api/v1'
+  authApiUrl: 'http://172.26.152.45:7001/api/v1',
+  bikeCatalogApiUrl: 'http://172.26.152.45:7002/api/v1'
 }

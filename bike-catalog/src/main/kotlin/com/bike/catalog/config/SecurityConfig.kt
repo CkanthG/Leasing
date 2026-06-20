@@ -53,7 +53,8 @@ class SecurityConfig {
     val configuration = CorsConfiguration()
 
     configuration.allowedOrigins = listOf(
-      "http://localhost:4200"
+      "http://localhost:4200",
+	  "http://172.26.152.45:4200"
     )
 
     configuration.allowedMethods = listOf(
