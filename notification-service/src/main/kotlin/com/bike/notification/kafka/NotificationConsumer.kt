@@ -5,6 +5,7 @@ import com.bike.notification.entity.NotificationEntity
 import com.bike.notification.event.NotificationEvent
 import com.bike.notification.repository.NotificationRepository
 import com.bike.notification.service.EmailService
+import org.slf4j.MDC
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -23,7 +24,7 @@ class NotificationConsumer(
   fun consume(
     event: NotificationEvent
   ) {
-    println("Notification Event : $event")
+    MDC.put("traceId", event.traceId)
     val notification = NotificationEntity(
       id = null,
       eventId = event.eventId,
@@ -39,7 +40,6 @@ class NotificationConsumer(
       sentAt = LocalDateTime.now(),
       failureReason = ""
     )
-    println("Notification Entity : $notification")
     notificationRepository.save(
      notification
     )
