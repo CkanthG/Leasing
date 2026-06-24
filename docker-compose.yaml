@@ -103,6 +103,19 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/notifications_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
+      MAIL_USERNAME: gaddojuc@gmail.com
+      MAIL_PASSWORD: Sree@berlin143
+      MAIL_HOSTNAME: mailhog
+      MAIL_PORT: 1025
+    networks:
+      - bike-network
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - bike-network
 
@@ -111,6 +124,53 @@ services:
     container_name: bike-lease-ui
     ports:
       - "4200:80"
+    networks:
+      - bike-network
+
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
+    command:
+      - "-config.file=/etc/tempo.yaml"
+    volumes:
+      - ./docker/tempo.yaml:/etc/tempo.yaml
+    ports:
+      - "3200:3200"
+    networks:
+      - bike-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib
+    container_name: otel-collector
+    command:
+      - "--config=/etc/otel-collector-config.yaml"
+    volumes:
+      - ./docker/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4318:4318"
+    depends_on:
+      - tempo
+    networks:
+      - bike-network
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - bike-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+      - tempo
     networks:
       - bike-network
 

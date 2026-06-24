@@ -30,7 +30,7 @@ class LeaseService(
         email = lease.email,
         eventType = lease.eventType.toString(),
         subject = lease.subject,
-        message = "Your bike lease request has been submitted",
+        message = "Your lease request is in Draft state",
         createdAt = lease.createdAt
       )
     )

@@ -11,5 +11,6 @@ data class NotificationEvent(
   val eventType: String,
   val subject: String,
   val message: String,
-  val createdAt: LocalDateTime
+  val createdAt: LocalDateTime,
+  var traceId: String? = null,
 )

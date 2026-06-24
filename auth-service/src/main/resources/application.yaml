@@ -37,3 +37,20 @@ logging:
     root: WARN
     org.springframework.web: DEBUG
     org.hibernate: ERROR
+  pattern:
+    correlation: "[traceId=%X{traceId}] [spanId=%X{spanId}]"
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+  otlp:
+    tracing:
+      endpoint: http://otel-collector:4318/v1/traces
+
+  endpoints:
+    health:
+      show-details: always
+    web:
+      exposure:
+        include: health,prometheus,metrics,info
