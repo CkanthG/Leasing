@@ -1,0 +1,21 @@
+.register-card {
+  width: 500px;
+  margin: 40px auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-links {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.auth-links a {
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}

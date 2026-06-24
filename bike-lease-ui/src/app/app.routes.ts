@@ -5,6 +5,7 @@ import {DashboardComponent} from './features/dashboard/dashboard.component';
 import {authGuard} from './guards/auth-guard';
 import { UserListComponent } from './features/users/user-list/user-list.component';
 import { BikeListComponent } from './features/bike-inventory/bike-list/bike-list.component';
+import { RegisterComponent } from './features/register.component/register.component';
 
 export const routes: Routes = [
   {
@@ -29,5 +30,9 @@ export const routes: Routes = [
     path: 'inventory',
     component: BikeListComponent,
     canActivate: [authGuard]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   }
 ];
