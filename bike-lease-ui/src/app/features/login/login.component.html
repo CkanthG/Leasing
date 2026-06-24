@@ -1,14 +1,47 @@
-<h2>Bike Lease Login</h2>
+<mat-card class="login-card">
 
-<div>
-  <input type="text" [(ngModel)]="email" placeholder="Email or Phone Number">
+  <mat-card-title>
+    Bike Lease Login
+  </mat-card-title>
 
-  <br><br>
+  <mat-card-content>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="login()">
 
-  <input type="password" [(ngModel)]="password", placeholder="Enter Password Here">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
 
-  <br><br>
+        <input
+          matInput
+          formControlName="email">
+      </mat-form-field>
 
-  <button (click)="login()">Login</button>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
 
-</div>
+        <input
+          matInput
+          type="password"
+          formControlName="password">
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit">
+
+        Login
+
+      </button>
+      </form>
+  </mat-card-content>
+
+  <div class="auth-links">
+    Don't have an account?
+    <a routerLink="/register">
+      Register
+    </a>
+  </div>
+
+</mat-card>

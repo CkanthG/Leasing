@@ -93,15 +93,24 @@ export class BikeListComponent implements AfterViewInit {
     });
 
    openDialog() {
-    const dialogRef = this.dialog.open(AddBikeDialogContent);
+    const dialogRef = this.dialog.open(AddBikeDialogContent, {
+      width: '800px',
+      height: '600px'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
-  openLeaseDialog() {
-    const leaseDialogRef = this.dialog.open(LeaseBikeDialog);
+  openLeaseDialog(bikeCatalogId: number) {
+    const leaseDialogRef = this.dialog.open(LeaseBikeDialog, {
+      width: '800px',
+      height: '300px',
+      data: {
+        bikeCatalogId: bikeCatalogId
+      }
+    });
 
     leaseDialogRef.afterClosed().subscribe(result => {
       console.log(`Lease Dialof Result : ${result}`);

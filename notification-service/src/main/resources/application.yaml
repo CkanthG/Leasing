@@ -42,6 +42,18 @@ spring:
                 type: com.bike.notification.event.NotificationEvent
     listener:
       ack-mode: record
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: gaddojuc@gmail.com
+    password: Sree@berlin143
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: 7003
 logging:

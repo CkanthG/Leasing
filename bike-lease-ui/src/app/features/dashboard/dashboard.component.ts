@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
           );
 
           this.totalBikes.set(
-            data.bikes.size
+            data.bikes.content.length
           );
 
         },

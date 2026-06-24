@@ -4,6 +4,7 @@ import com.bike.notification.dto.NotificationStatus
 import com.bike.notification.entity.NotificationEntity
 import com.bike.notification.event.NotificationEvent
 import com.bike.notification.repository.NotificationRepository
+import com.bike.notification.service.EmailService
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -11,7 +12,8 @@ import java.util.*
 
 @Component
 class NotificationConsumer(
-  private val notificationRepository: NotificationRepository
+  private val notificationRepository: NotificationRepository,
+  private val emailService: EmailService
 ) {
 
   @KafkaListener(
@@ -23,7 +25,7 @@ class NotificationConsumer(
   ) {
     println("Notification Event : $event")
     val notification = NotificationEntity(
-      UUID.randomUUID(),
+      id = null,
       eventId = event.eventId,
       leaseId = event.leaseId,
       userId = event.userId,
@@ -41,5 +43,7 @@ class NotificationConsumer(
     notificationRepository.save(
      notification
     )
+
+    emailService.sendEmail(event)
   }
 }

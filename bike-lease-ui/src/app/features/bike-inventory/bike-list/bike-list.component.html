@@ -5,12 +5,14 @@
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Filter bikes..." #input>
   </mat-form-field>
-  <button align="end"
-    mat-raised-button
-    color="primary"
-    (click)="openDialog()">
-    Add Bike
-  </button>
+  @if (this.userRole() === 'ADMIN') {
+    <button align="end"
+      mat-raised-button
+      color="primary"
+      (click)="openDialog()">
+      Add Bike
+    </button>
+  }
 </div>
 
 <div class="bike-list-container">
@@ -45,7 +47,7 @@
         <button mat-button color="warn">Delete</button>
       }
       @if (this.userRole() === 'USER' && bike.availabilityStatus) {
-        <button mat-button color="info" (click)="openLeaseDialog()">Lease</button>
+        <button mat-button color="info" (click)="openLeaseDialog(bike.id)">Lease</button>
       }
     </mat-card-actions>
   </mat-card>

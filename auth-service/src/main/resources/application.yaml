@@ -34,3 +34,6 @@ logging:
     org.springframework.security: DEBUG
     liquibase: DEBUG
     org.springframework.liquibase: DEBUG
+    root: WARN
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR

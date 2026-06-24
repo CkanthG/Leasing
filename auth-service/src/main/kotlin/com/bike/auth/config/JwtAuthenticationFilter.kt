@@ -1,5 +1,6 @@
 package com.bike.auth.config
 
+import com.bike.auth.exception.TokenException
 import com.bike.auth.repository.UserRepository
 import com.bike.auth.service.JwtService
 import jakarta.servlet.FilterChain
@@ -26,8 +27,12 @@ class JwtAuthenticationFilter(
     }
 
     val token = authHeader.substring(7)
-
-    val email = jwtService.extractEmailFromToken(token)
+    val email: String
+    if (jwtService.validateToken(token)) {
+      email = jwtService.extractEmailFromToken(token)
+    } else {
+      throw TokenException("Token Expired")
+    }
 
     if (SecurityContextHolder.getContext().authentication == null) {
       val userDetails = userDetailsService.loadUserByUsername(email)
