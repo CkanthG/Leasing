@@ -18,7 +18,7 @@ class JwtServiceTest {
   @Test
   fun validateToken__extractUserName__extractRoles() {
     // dummy token to test
-    val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzQGdtYWlsLmNvbSIsImlhdCI6MTc4MTgyMzkyNywicm9sZSI6IlVTRVIiLCJleHAiOjE3ODE5MTAzMjd9.KQB98dcudMzEGh2hUkg42qwTVzcScX1PvUjyUk--Qlo"
+    val token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzQGdtYWlsLmNvbSIsImlhdCI6MTc4MjM3OTQzOCwicm9sZSI6IlVTRVIiLCJleHAiOjE3ODI0NjU4Mzh9.JSESFULUWzRk9czfULcFpZhh3aRswdvk2nL22Ep8bZs"
 
     val validation = service.validateToken(token)
     assertThat(validation).isTrue
