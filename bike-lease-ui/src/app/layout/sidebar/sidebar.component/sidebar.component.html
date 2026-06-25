@@ -1,0 +1,80 @@
+<mat-sidenav class="sidebar" mode="side" opened>
+
+  <div class="sidebar-header">
+
+    <img
+      src="assets/images/lease-a-bike-logo.png"
+      alt="Logo"
+      class="logo">
+
+  </div>
+
+  <mat-nav-list>
+
+    <a
+      mat-list-item
+      routerLink="/dashboard"
+      routerLinkActive="active-link">
+
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+
+    </a>
+
+    <a
+      mat-list-item
+      routerLink="/users"
+      routerLinkActive="active-link">
+
+      <mat-icon>people</mat-icon>
+      <span>Users</span>
+
+    </a>
+
+    <a
+      mat-list-item
+      routerLink="/inventory"
+      routerLinkActive="active-link">
+
+      <mat-icon>directions_bike</mat-icon>
+      <span>Bike Inventory</span>
+
+    </a>
+
+    <a
+      mat-list-item
+      routerLink="/leases"
+      routerLinkActive="active-link">
+
+      <mat-icon>assignment</mat-icon>
+      <span>Leases</span>
+
+    </a>
+
+    <a
+      mat-list-item
+      routerLink="/notifications"
+      routerLinkActive="active-link">
+
+      <mat-icon>notifications</mat-icon>
+      <span>Notifications</span>
+
+    </a>
+
+  </mat-nav-list>
+
+  <div class="logout-container">
+
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="logout()">
+
+      <mat-icon>logout</mat-icon>
+      Logout
+
+    </button>
+
+  </div>
+
+</mat-sidenav>

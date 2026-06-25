@@ -4,8 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { HeaderComponent } from '../../../core/layout/header.component/header.component';
+import { MatTableModule } from '@angular/material/table';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/models/user.model';
 
@@ -17,9 +16,8 @@ import { User } from '../../../shared/models/user.model';
     MatSortModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule,
-    HeaderComponent
-  ],
+    MatInputModule
+],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })

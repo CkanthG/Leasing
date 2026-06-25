@@ -1,29 +1,48 @@
-<app-header></app-header>
+<div class="dashboard-container">
 
-<div class="dashboard-grid">
+  <div class="dashboard-header">
+    <h2>Dashboard</h2>
+    <p>Overview of your system at a glance</p>
+  </div>
 
-  <mat-card>
+  <div class="dashboard-grid">
 
-    <mat-card-title>
-      Total Users
-    </mat-card-title>
+    <mat-card class="stat-card users">
+      <div class="stat-icon">👤</div>
+      <div class="stat-content">
+        <div class="stat-title">Total Users</div>
+        <div class="stat-value">{{ totalUsers() }}</div>
+        <div class="stat-sub">Registered accounts</div>
+      </div>
+    </mat-card>
 
-    <mat-card-content>
-      {{ this.totalUsers() }}
-    </mat-card-content>
+    <mat-card class="stat-card bikes">
+      <div class="stat-icon">🏍️</div>
+      <div class="stat-content">
+        <div class="stat-title">Total Bikes</div>
+        <div class="stat-value">{{ totalBikes() }}</div>
+        <div class="stat-sub">Available listings</div>
+      </div>
+    </mat-card>
 
-  </mat-card>
+    <mat-card class="stat-card active">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-title">Active Listings</div>
+        <div class="stat-value">{{ activeBikes() }}</div>
+        <div class="stat-sub">Currently live</div>
+      </div>
+    </mat-card>
 
-  <mat-card>
+    <mat-card class="stat-card disabled">
+      <div class="stat-icon">⛔</div>
+      <div class="stat-content">
+        <div class="stat-title">Disabled Users</div>
+        <div class="stat-value">{{ disabledUsers() }}</div>
+        <div class="stat-sub">Inactive accounts</div>
+      </div>
+    </mat-card>
 
-    <mat-card-title>
-      Total Bikes
-    </mat-card-title>
-
-    <mat-card-content>
-      {{ this.totalBikes() }}
-    </mat-card-content>
-
-  </mat-card>
+  </div>
 
 </div>

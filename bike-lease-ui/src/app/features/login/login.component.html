@@ -1,10 +1,23 @@
 <mat-card class="login-card">
 
-  <mat-card-title>
-    Bike Lease Login
-  </mat-card-title>
-
   <mat-card-content>
+    
+    <div class="branding-panel">
+
+    <img
+    [src]="'assets/images/lease-a-bike-logo.png'"
+    alt="Logo">
+
+    <h1>Bike Leasing Platform</h1>
+
+    <p>
+      Manage bikes, leases, notifications
+      and users from a unified platform.
+    </p>
+
+  </div>
+
+  <div class="form-panel">
     <form
       [formGroup]="loginForm"
       (ngSubmit)="login()">
@@ -35,6 +48,8 @@
 
       </button>
       </form>
+  </div>
+    
   </mat-card-content>
 
   <div class="auth-links">

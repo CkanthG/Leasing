@@ -1,11 +1,22 @@
 <mat-card class="register-card">
 
-  <mat-card-title>
-    User Registration
-  </mat-card-title>
-
   <mat-card-content>
+  <div class="branding-panel">
 
+      <img
+      [src]="'assets/images/lease-a-bike-logo.png'"
+      alt="Logo">
+
+      <h1>Bike Leasing Registration</h1>
+
+      <p>
+        Manage bikes, leases, notifications
+        and users from a unified platform.
+      </p>
+
+    </div>
+
+    <div class="form-panel">
     <form
       [formGroup]="registerForm"
       (ngSubmit)="register()">
@@ -64,6 +75,7 @@
       </button>
 
     </form>
+    </div>
 
   </mat-card-content>
 

@@ -4,7 +4,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { HeaderComponent } from '../../../core/layout/header.component/header.component';
 import { BikeCatalogService } from '../../../shared/services/bike-catalog.service';
 import { BikeCatalog } from '../../../shared/models/bike-catalog.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +20,6 @@ import { LeaseBikeDialog } from './dialogs/lease-bike-dialog/lease-bike-dialog';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    HeaderComponent,
     MatCard,
     MatCardContent,
     MatCardHeader,
