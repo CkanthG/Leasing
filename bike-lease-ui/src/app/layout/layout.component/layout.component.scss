@@ -1,0 +1,64 @@
+.sidebar {
+  width: 300px;
+  background: #fafafa;
+  border-right: 1px solid #e0e0e0;
+
+  height: 100%;          /* 🔥 KEY FIX */
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 24px 16px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+mat-nav-list {
+  padding-top: 16px;
+}
+
+mat-nav-list a {
+  height: 52px;
+  border-radius: 10px;
+  margin: 4px 12px;
+}
+
+mat-icon {
+  margin-right: 16px;
+}
+
+.active-link {
+  background: rgba(63, 81, 181, 0.12);
+  font-weight: 600;
+}
+
+.logout-container {
+  position: absolute;
+  bottom: 24px;
+  width: 100%;
+  text-align: center;
+}
+
+.app-container {
+  height: 100vh;
+}
+
+.page-content {
+  padding: 24px;
+  height: 100%;
+  overflow: auto;
+}
