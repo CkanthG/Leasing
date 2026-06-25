@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
           this.totalUsers.set(
             data.users.length
           );
-          console.log("users ", data.users);
+          
           this.disabledUsers.set(
             data.users.filter((user: any) => user.enabled === false).length
           );
