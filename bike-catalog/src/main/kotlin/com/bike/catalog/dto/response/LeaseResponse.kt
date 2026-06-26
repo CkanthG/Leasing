@@ -8,5 +8,6 @@ data class LeaseResponse(
   val leaseId: UUID,
   val eventId: UUID,
   val eventType: EventType,
-  val createdAt: LocalDateTime
+  val createdAt: LocalDateTime,
+  val leaseTenure: Long
 )

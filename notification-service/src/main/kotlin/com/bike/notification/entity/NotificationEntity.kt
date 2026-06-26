@@ -42,5 +42,7 @@ class NotificationEntity(
 
   var sentAt: LocalDateTime?,
 
-  var failureReason: String?
+  var failureReason: String?,
+
+  val leaseTenure: Long?
 )

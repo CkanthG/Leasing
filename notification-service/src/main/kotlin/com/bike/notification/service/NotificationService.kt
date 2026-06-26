@@ -15,7 +15,7 @@ class NotificationService(
 
   fun process(event: NotificationEvent) {
     val notification = NotificationEntity(
-      id = UUID.randomUUID(),
+      id = null,
       eventId = event.eventId,
       leaseId = event.leaseId,
       userId = event.userId,
@@ -23,11 +23,12 @@ class NotificationService(
       eventType = event.eventType,
       subject = event.subject,
       message = event.message,
+      createdAt = event.createdAt,
       status = NotificationStatus.PENDING,
       retryCount = 0,
-      createdAt = LocalDateTime.now(),
-      sentAt = null,
-      failureReason = null
+      sentAt = LocalDateTime.now(),
+      failureReason = "",
+      leaseTenure = event.leaseTenure
     )
 
     notificationRepository.save(notification)
