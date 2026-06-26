@@ -33,8 +33,6 @@ export class BikeListComponent implements AfterViewInit {
   bikeCatalogDataSource: WritableSignal<BikeCatalog[]> = signal([]);
   readonly dialog = inject(MatDialog);
 
-  displayedColumns: string[] = ['id', 'brand', 'model', 'variant', 'engineCc', 'price', 'leaseAmount', 'leaseTenure', 'mileage', 'availabilityStatus', 'insuranceDetails'];
-
   bikeDataSource = signal<BikeCatalog[]>([]);
   search = signal('');
 
@@ -67,7 +65,10 @@ export class BikeListComponent implements AfterViewInit {
     bikeCatalogService.getAllBikes(this.pageIndex, this.pageSize).subscribe(bikes => {
       this.bikeCatalogDataSource.set(bikes.content);
       this.bikeDataSource.set(bikes.content);
+      this.totalRecords = bikes.totalElements;
     });
+
+    
 
     this.userRole.set(localStorage.getItem('role') as string)
    }

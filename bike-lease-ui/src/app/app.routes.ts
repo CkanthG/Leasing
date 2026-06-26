@@ -5,6 +5,7 @@ import {authGuard} from './guards/auth-guard';
 import { UserListComponent } from './features/users/user-list/user-list.component';
 import { BikeListComponent } from './features/bike-inventory/bike-list/bike-list.component';
 import { RegisterComponent } from './features/register.component/register.component';
+import { LeaseComponent } from './features/lease.component/lease.component';
 
 export const routes: Routes = [
   {
@@ -29,5 +30,10 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'leases',
+    component: LeaseComponent,
+    canActivate: [authGuard]
   }
 ];

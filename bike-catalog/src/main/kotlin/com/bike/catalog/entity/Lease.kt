@@ -23,5 +23,6 @@ data class Lease(
   @Enumerated(EnumType.STRING)
   val eventType: EventType,
   val subject: String,
-  val createdAt: LocalDateTime
+  val createdAt: LocalDateTime,
+  val leaseTenure: Long?,
 )

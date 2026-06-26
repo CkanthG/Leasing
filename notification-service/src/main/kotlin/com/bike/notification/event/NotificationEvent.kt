@@ -13,4 +13,5 @@ data class NotificationEvent(
   val message: String,
   val createdAt: LocalDateTime,
   var traceId: String? = null,
+  val leaseTenure: Long
 )

@@ -7,5 +7,6 @@
 
     <include file="/db/changelog/changes/001-create-bike-catalog.sql"/>
     <include file="/db/changelog/changes/002-create-lease-table.sql"/>
+    <include file="/db/changelog/changes/003-add-leaseTenure-column-to-lease-table.sql"/>
 
 </databaseChangeLog>

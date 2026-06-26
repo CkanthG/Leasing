@@ -7,5 +7,6 @@
 
     <include file="/db/changelog/changes/001-create-notification-table.sql"/>
     <include file="/db/changelog/changes/002-create-email-templates-table.sql"/>
+    <include file="/db/changelog/changes/003-add-leaseTenure-column-to-notification-table.sql"/>
 
 </databaseChangeLog>
