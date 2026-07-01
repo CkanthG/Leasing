@@ -104,7 +104,7 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
       MAIL_USERNAME: gaddojuc@gmail.com
-      MAIL_PASSWORD: Sree@berlin143
+      MAIL_PASSWORD: XXXXX
       MAIL_HOSTNAME: mailhog
       MAIL_PORT: 1025
     networks:
