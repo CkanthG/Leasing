@@ -48,7 +48,8 @@ class SecurityConfig(
 
     configuration.allowedOrigins = listOf(
       "http://localhost:4200",
-	  "http://172.26.152.45:4200"
+	  "http://172.26.152.45:4200",
+	  "http://172.31.78.181:4200"
     )
 
     configuration.allowedMethods = listOf(

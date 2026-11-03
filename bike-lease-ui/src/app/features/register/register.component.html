@@ -1,0 +1,63 @@
+<h2>Bike Lease Registration</h2>
+
+@if (registered) {
+  <p role="status">Your account has been created. You can now <a routerLink="/">log in</a>.</p>
+} @else {
+  <form #registrationForm="ngForm" (ngSubmit)="register()">
+    <div>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        placeholder="Email"
+        name="email"
+        autocomplete="email"
+        required
+        email
+        #emailField="ngModel">
+      @if (emailField.invalid && emailField.touched) {
+        <p role="alert">Enter a valid email address.</p>
+      }
+
+      <br><br>
+
+      <input
+        type="password"
+        [(ngModel)]="password"
+        placeholder="Enter Password Here"
+        name="password"
+        autocomplete="new-password"
+        required
+        #passwordField="ngModel">
+
+      <br><br>
+
+      <input
+        type="password"
+        [(ngModel)]="confirmPassword"
+        placeholder="Confirm Password"
+        name="confirmPassword"
+        autocomplete="new-password"
+        required>
+
+      <br><br>
+
+      <label for="role">Role</label>
+      <select id="role" [(ngModel)]="role" name="role" required>
+        <option value="USER">User</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+
+      <br><br>
+
+      @if (errorMessage) {
+        <p role="alert">{{ errorMessage }}</p>
+      }
+
+      <button type="submit" [disabled]="registrationForm.invalid || submitting">
+        {{ submitting ? 'Registering...' : 'Register' }}
+      </button>
+    </div>
+  </form>
+
+  <p>Already have an account? <a routerLink="/">Login</a></p>
+}

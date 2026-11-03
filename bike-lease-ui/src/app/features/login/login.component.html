@@ -1,14 +1,15 @@
 <h2>Bike Lease Login</h2>
 
 <div>
-  <input type="text" [(ngModel)]="email" placeholder="Email or Phone Number">
+  <input type="email" [(ngModel)]="email" placeholder="Email" name="email">
 
   <br><br>
 
-  <input type="password" [(ngModel)]="password", placeholder="Enter Password Here">
+  <input type="password" [(ngModel)]="password" placeholder="Enter Password Here" name="password">
 
   <br><br>
 
   <button (click)="login()">Login</button>
-
 </div>
+
+<p>Don't have an account? <a routerLink="/register">Register</a></p>

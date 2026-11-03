@@ -107,7 +107,9 @@ services:
       - bike-network
 
   bike-lease-ui:
-    image: bike-lease-ui
+    build:
+      context: ./bike-lease-ui
+    image: bike-lease-ui:latest
     container_name: bike-lease-ui
     ports:
       - "4200:80"
