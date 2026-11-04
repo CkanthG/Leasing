@@ -1,7 +1,7 @@
 package com.bike.notification.config
 
 import com.bike.notification.event.NotificationEvent
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
@@ -23,7 +23,7 @@ class KafkaConsumerConfig(
   @Bean
   fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, NotificationEvent> {
       val factory = ConcurrentKafkaListenerContainerFactory<String, NotificationEvent>()
-      factory.consumerFactory = consumerFactory()
+      factory.setConsumerFactory(consumerFactory())
       return factory
   }
 }

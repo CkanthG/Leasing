@@ -121,7 +121,8 @@ Before running the project, make sure the following are installed:
 
 - Git
 - Java 21 JDK
-- Gradle wrapper is included in each service, but Java 21 is still required
+- Gradle 9.6.0 is selected by the wrapper included in each backend service
+- Spring Boot 4.1.0 and Kotlin 2.3.21 are used by the backend services
 - Node.js 20+ and npm
 - Docker Desktop or Docker Engine + Docker Compose
 - A browser such as Chrome, Edge, or Firefox

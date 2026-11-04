@@ -17,6 +17,13 @@ class JwtAuthenticationFilter(
   private val userDetailsService: UserDetailsService,
 ): OncePerRequestFilter() {
 
+  override fun shouldNotFilter(request: HttpServletRequest): Boolean {
+    val path = request.servletPath.ifBlank {
+      request.requestURI.removePrefix(request.contextPath)
+    }
+    return path == "/api/v1/auth" || path.startsWith("/api/v1/auth/")
+  }
+
   override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
     val authHeader = request.getHeader("Authorization")
 
@@ -27,21 +34,16 @@ class JwtAuthenticationFilter(
 
     val token = authHeader.substring(7)
 
-    val email = jwtService.extractEmailFromToken(token)
-
-    if (SecurityContextHolder.getContext().authentication == null) {
+    if (SecurityContextHolder.getContext().authentication == null && jwtService.validateToken(token)) {
+      val email = jwtService.extractEmailFromToken(token)
       val userDetails = userDetailsService.loadUserByUsername(email)
+      val authToken = UsernamePasswordAuthenticationToken(
+        userDetails,
+        null,
+        userDetails.authorities
+      )
 
-      if (jwtService.validateToken(token)) {
-        val authToken = UsernamePasswordAuthenticationToken(
-          userDetails,
-          null,
-          userDetails.authorities
-        )
-
-        SecurityContextHolder.getContext().authentication = authToken
-      }
-
+      SecurityContextHolder.getContext().authentication = authToken
     }
 
     filterChain.doFilter(request, response)

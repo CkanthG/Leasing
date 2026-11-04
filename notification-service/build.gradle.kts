@@ -1,9 +1,9 @@
 plugins {
-  kotlin("jvm") version "1.9.25"
-  kotlin("plugin.spring") version "1.9.25"
-  id("org.springframework.boot") version "3.5.15"
+  kotlin("jvm") version "2.3.21"
+  kotlin("plugin.spring") version "2.3.21"
+  id("org.springframework.boot") version "4.1.0"
   id("io.spring.dependency-management") version "1.1.7"
-  kotlin("plugin.jpa") version "1.9.25"
+  kotlin("plugin.jpa") version "2.3.21"
 }
 
 group = "com.bike"
@@ -22,16 +22,18 @@ repositories {
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-  implementation("org.springframework.boot:spring-boot-starter-web")
-  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  implementation("org.springframework.boot:spring-boot-starter-webmvc")
+  implementation("tools.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
-  implementation("org.springframework.kafka:spring-kafka")
+  implementation("org.springframework.boot:spring-boot-starter-kafka")
   runtimeOnly("org.postgresql:postgresql")
-  implementation("org.liquibase:liquibase-core")
+  implementation("org.springframework.boot:spring-boot-starter-liquibase")
   implementation("org.springframework.boot:spring-boot-starter-mail")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-mail-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-kafka-test")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-  testImplementation("org.springframework.kafka:spring-kafka-test")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
