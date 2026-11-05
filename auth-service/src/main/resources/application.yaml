@@ -43,14 +43,19 @@ management:
   tracing:
     sampling:
       probability: 1.0
-
-  otlp:
+  opentelemetry:
     tracing:
-      endpoint: http://otel-collector:4318/v1/traces
-
+      export:
+        otlp:
+          endpoint: http://otel-collector:4318/v1/traces
+  otlp:
+    metrics:
+      export:
+        enabled: false   # you scrape metrics with Prometheus; the collector has no metrics pipeline
   endpoints:
-    health:
-      show-details: always
     web:
       exposure:
         include: health,prometheus,metrics,info
+  endpoint:
+    health:
+      show-details: always

@@ -12,7 +12,7 @@ description = "bike-catalog"
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(21)
+    languageVersion = JavaLanguageVersion.of(25)
   }
 }
 
@@ -27,6 +27,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("io.micrometer:micrometer-registry-prometheus")
+  implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
   implementation("io.micrometer:micrometer-tracing-bridge-otel")
   implementation("io.opentelemetry:opentelemetry-exporter-otlp")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -36,7 +37,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-kafka")
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("io.jsonwebtoken:jjwt-api:0.12.5")
-  runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
+  runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
   runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
   testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
   testImplementation("org.springframework.boot:spring-boot-starter-security-test")
