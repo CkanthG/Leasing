@@ -37,7 +37,7 @@ class SecurityConfig {
         it.requestMatchers(
           "/actuator/**"
         ).permitAll()
-
+        it.requestMatchers("/actuator", "/actuator/health", "/actuator/prometheus").permitAll()
         it.anyRequest().authenticated()
       }
       .addFilterBefore(

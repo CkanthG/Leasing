@@ -16,32 +16,15 @@ import java.util.*
 
 @Service
 class BikeCatalogService(
-  private val bikeCatalogRepository: BikeCatalogRepository,
-  private val kafkaProducer: KafkaProducer
+  private val bikeCatalogRepository: BikeCatalogRepository
 ) {
 
   fun saveBikeCatalog(bikeCatalogRequest: BikeCatalogRequest): BikeCatalogResponse {
     val bikeCatalog = toBikeCatalogEntity(bikeCatalogRequest)
-
-    val bc = bikeCatalogRepository.save(bikeCatalog)
-    kafkaProducer.producer(
-      NotificationEvent(
-        eventId = UUID.randomUUID().toString(),
-        leaseId = UUID.randomUUID(),
-        userId = 1L,
-        email = "gaddojuc@gmail.com",
-        eventType = "LEASE_CREATED",
-        subject = "Lease Created",
-        message = "Your bike lease request has been submitted",
-        createdAt = LocalDateTime.now()
-      )
-    )
-
-    return toResponse(bc)
+    return toResponse(bikeCatalogRepository.save(bikeCatalog))
   }
 
-  private fun toBikeCatalogEntity(bikeCatalogRequest: BikeCatalogRequest): BikeCatalog {
-    return BikeCatalog(
+  private fun toBikeCatalogEntity(bikeCatalogRequest: BikeCatalogRequest): BikeCatalog = BikeCatalog(
       id = bikeCatalogRequest.id ?: 0,
       brand = bikeCatalogRequest.brand,
       model = bikeCatalogRequest.model,
@@ -55,7 +38,6 @@ class BikeCatalogService(
       availabilityStatus = bikeCatalogRequest.availabilityStatus,
       insuranceDetails = bikeCatalogRequest.insuranceDetails
     )
-  }
 
   fun getBikeCatalogById(id: Long): BikeCatalogResponse {
     val bc = bikeCatalog(id)

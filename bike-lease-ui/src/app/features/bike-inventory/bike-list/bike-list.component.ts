@@ -4,7 +4,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { HeaderComponent } from '../../../core/layout/header.component/header.component';
 import { BikeCatalogService } from '../../../shared/services/bike-catalog.service';
 import { BikeCatalog } from '../../../shared/models/bike-catalog.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +20,6 @@ import { LeaseBikeDialog } from './dialogs/lease-bike-dialog/lease-bike-dialog';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    HeaderComponent,
     MatCard,
     MatCardContent,
     MatCardHeader,
@@ -34,8 +32,6 @@ import { LeaseBikeDialog } from './dialogs/lease-bike-dialog/lease-bike-dialog';
 export class BikeListComponent implements AfterViewInit {
   bikeCatalogDataSource: WritableSignal<BikeCatalog[]> = signal([]);
   readonly dialog = inject(MatDialog);
-
-  displayedColumns: string[] = ['id', 'brand', 'model', 'variant', 'engineCc', 'price', 'leaseAmount', 'leaseTenure', 'mileage', 'availabilityStatus', 'insuranceDetails'];
 
   bikeDataSource = signal<BikeCatalog[]>([]);
   search = signal('');
@@ -69,7 +65,10 @@ export class BikeListComponent implements AfterViewInit {
     bikeCatalogService.getAllBikes(this.pageIndex, this.pageSize).subscribe(bikes => {
       this.bikeCatalogDataSource.set(bikes.content);
       this.bikeDataSource.set(bikes.content);
+      this.totalRecords = bikes.totalElements;
     });
+
+    
 
     this.userRole.set(localStorage.getItem('role') as string)
    }
@@ -93,15 +92,24 @@ export class BikeListComponent implements AfterViewInit {
     });
 
    openDialog() {
-    const dialogRef = this.dialog.open(AddBikeDialogContent);
+    const dialogRef = this.dialog.open(AddBikeDialogContent, {
+      width: '800px',
+      height: '600px'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
-  openLeaseDialog() {
-    const leaseDialogRef = this.dialog.open(LeaseBikeDialog);
+  openLeaseDialog(bikeCatalogId: number) {
+    const leaseDialogRef = this.dialog.open(LeaseBikeDialog, {
+      width: '800px',
+      height: '300px',
+      data: {
+        bikeCatalogId: bikeCatalogId
+      }
+    });
 
     leaseDialogRef.afterClosed().subscribe(result => {
       console.log(`Lease Dialof Result : ${result}`);

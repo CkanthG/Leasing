@@ -29,7 +29,7 @@ spring:
     bootstrap-servers: kafka:29092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
 server:
   port: 7002
 jwt:
@@ -40,3 +40,25 @@ logging:
     org.springframework.web: DEBUG
     org.hibernate: ERROR
     org.springframework.security: DEBUG
+  pattern:
+    correlation: "[traceId=%X{traceId}] [spanId=%X{spanId}]"
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: http://otel-collector:4318/v1/traces
+  otlp:
+    metrics:
+      export:
+        enabled: false   # you scrape metrics with Prometheus; the collector has no metrics pipeline
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,metrics,info
+  endpoint:
+    health:
+      show-details: always

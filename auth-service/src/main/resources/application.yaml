@@ -34,3 +34,28 @@ logging:
     org.springframework.security: DEBUG
     liquibase: DEBUG
     org.springframework.liquibase: DEBUG
+    root: WARN
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR
+  pattern:
+    correlation: "[traceId=%X{traceId}] [spanId=%X{spanId}]"
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: http://otel-collector:4318/v1/traces
+  otlp:
+    metrics:
+      export:
+        enabled: false   # you scrape metrics with Prometheus; the collector has no metrics pipeline
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,metrics,info
+  endpoint:
+    health:
+      show-details: always
